@@ -90,7 +90,7 @@ ui <- dashboardPage(
                     
                     
                     uiOutput("map_a_val"),
-                    uiOutput("map_b_val"),                    
+                    uiOutput("map_b_val")                    
                     
                   ),
                   
