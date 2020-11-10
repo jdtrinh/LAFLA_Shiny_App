@@ -2,18 +2,18 @@
 ###                                 Set-up                                     ###
 ##################################################################################
 
-list.of.packages <- c("dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
+# End user must install the following packages: shiny, data.table
+
+list.of.packages <- c("data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
                       "janitor", "lubridate", "plotly", "readxl", "rsconnect", "shiny",
                       "shinydashboard", "shinythemes", "shinyWidgets", "sqldf",
                       "stringr", "zoo", "tidyr", "devtools")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-install.packages("data.table", type = "binary")
 install_github('arilamstein/choroplethrZip@v1.5.0')
 
 ## Import Libraries ##
-
 library(data.table)
 library(dplyr)
 library(DT)
