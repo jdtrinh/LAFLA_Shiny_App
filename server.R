@@ -11,8 +11,6 @@ list.of.packages <- c("data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcha
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-install_github('arilamstein/choroplethrZip@v1.5.0')
-
 ## Import Libraries ##
 library(data.table)
 library(dplyr)
@@ -36,6 +34,7 @@ library(tidyr)
 library(devtools)
 library(choroplethrZip)
 
+install_github('arilamstein/choroplethrZip@v1.5.0')
   
 options(scipen=999)
 rm(list=ls())
