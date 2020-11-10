@@ -9,7 +9,7 @@ list.of.packages <- c("dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-install.packages("data.table", dependencies = TRUE)
+install.packages("data.table", type = "binary")
 install_github('arilamstein/choroplethrZip@v1.5.0')
 
 ## Import Libraries ##
