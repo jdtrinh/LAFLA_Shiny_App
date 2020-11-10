@@ -56,9 +56,6 @@ mydata <- subset(mydata, select = -c(NAME, `Zip Code.x`, `Zip Code.y`, name, zip
                                      `Supervisorial District 4`, `Supervisorial District 5`))
 names(mydata)
 
-# ## TEST
-# mydata <- head(mydata, 10)
-
 
 path   <- "./Input/"
 income <- read.csv(paste0(path, "income.csv"))
@@ -128,93 +125,93 @@ server <- function(input, output, session){
   # "region" and one column named "value". Your entries for "region" must exactly
   # match how regions are named in the map which choroplethr uses.
 
-  # Select_Var_A <- eventReactive(input$HM_map_a_val, {
-  #   # Input interested variable
-  #   var = c(input$HM_map_a_val)
-  # 
-  #   masterDataMap <- masterData %>%
-  #     # Filter to LA FIPS code
-  #     filter(GEOID %in% LARegions) %>%
-  #     # Only keep interested variables
-  #     select(GEOID, var)
-  # 
-  #   # Rename variables to work with package
-  #   names(masterDataMap) <- c("region", "value")
-  # 
-  #   ###########################################################################
-  #   # Create map
-  #   ###########################################################################
-  # 
-  #   # Use the choroplethrZip package
-  #   map <- zip_choropleth(masterDataMap,
-  #                         # Filter to LA codes
-  #                         zip_zoom = LARegions,
-  #                         legend   = "Count") +
-  #     # Change the title theme
-  #     theme(plot.title = element_text(size = 12, face = "bold", hjust=0.5, margin = margin(b = 20, r=0, l=0, t=20)),
-  #           legend.title = element_text( size=10, face="bold")) +
-  #     # Add a title
-  #     ggtitle(paste0(var,"\n", "Greater Los Angeles"))
-  # 
-  #   map
-  # })
-  # 
-  # 
-  # output$HM_map_a <- renderPlot({
-  #   print(Select_Var_A())
-  # })
-  # 
-  # Select_Var_B <- eventReactive(input$HM_map_b_val, {
-  #   # Input interested variable
-  #   var = c(input$HM_map_b_val)
-  # 
-  #   masterDataMap <- masterData %>%
-  #     # Filter to LA FIPS code
-  #     filter(GEOID %in% LARegions) %>%
-  #     # Only keep interested variables
-  #     select(GEOID, var)
-  # 
-  #   # Rename variables to work with package
-  #   names(masterDataMap) <- c("region", "value")
-  # 
-  #   ###########################################################################
-  #   # Create map
-  #   ###########################################################################
-  # 
-  #   # Use the choroplethrZip package
-  #   map <- zip_choropleth(masterDataMap,
-  #                         # Filter to LA codes
-  #                         zip_zoom = LARegions,
-  #                         legend   = "Count") +
-  #     # Change the title theme
-  #     theme(plot.title = element_text(size = 12, face = "bold", hjust=0.5, margin = margin(b = 20, r=0, l=0, t=20)),
-  #           legend.title = element_text( size=10, face="bold")) +
-  #     # Add a title
-  #     ggtitle(paste0(var,"\n", "Greater Los Angeles"))
-  # 
-  #   map
-  # })
-  # 
-  # 
-  # output$HM_map_b <- renderPlot({
-  #   print(Select_Var_B())
-  # })
-  # 
-  # output$download_var_a_map <- downloadHandler(
-  #   filename = "Variable A Map.png",
-  #   content = function(file) {
-  #     png(file)
-  #     print(Select_Var_A())
-  #     dev.off()
-  #   })
-  # 
-  # output$download_var_b_map <- downloadHandler(
-  #   filename = "Variable B Map.png",
-  #   content = function(file) {
-  #     png(file)
-  #     print(Select_Var_B())
-  #     dev.off()
-  #   })
+  Select_Var_A <- eventReactive(input$HM_map_a_val, {
+    # Input interested variable
+    var = c(input$HM_map_a_val)
+
+    masterDataMap <- masterData %>%
+      # Filter to LA FIPS code
+      filter(GEOID %in% LARegions) %>%
+      # Only keep interested variables
+      select(GEOID, var)
+
+    # Rename variables to work with package
+    names(masterDataMap) <- c("region", "value")
+
+    ###########################################################################
+    # Create map
+    ###########################################################################
+
+    # Use the choroplethrZip package
+    map <- zip_choropleth(masterDataMap,
+                          # Filter to LA codes
+                          zip_zoom = LARegions,
+                          legend   = "Count") +
+      # Change the title theme
+      theme(plot.title = element_text(size = 12, face = "bold", hjust=0.5, margin = margin(b = 20, r=0, l=0, t=20)),
+            legend.title = element_text( size=10, face="bold")) +
+      # Add a title
+      ggtitle(paste0(var,"\n", "Greater Los Angeles"))
+
+    map
+  })
+
+
+  output$HM_map_a <- renderPlot({
+    print(Select_Var_A())
+  })
+
+  Select_Var_B <- eventReactive(input$HM_map_b_val, {
+    # Input interested variable
+    var = c(input$HM_map_b_val)
+
+    masterDataMap <- masterData %>%
+      # Filter to LA FIPS code
+      filter(GEOID %in% LARegions) %>%
+      # Only keep interested variables
+      select(GEOID, var)
+
+    # Rename variables to work with package
+    names(masterDataMap) <- c("region", "value")
+
+    ###########################################################################
+    # Create map
+    ###########################################################################
+
+    # Use the choroplethrZip package
+    map <- zip_choropleth(masterDataMap,
+                          # Filter to LA codes
+                          zip_zoom = LARegions,
+                          legend   = "Count") +
+      # Change the title theme
+      theme(plot.title = element_text(size = 12, face = "bold", hjust=0.5, margin = margin(b = 20, r=0, l=0, t=20)),
+            legend.title = element_text( size=10, face="bold")) +
+      # Add a title
+      ggtitle(paste0(var,"\n", "Greater Los Angeles"))
+
+    map
+  })
+
+
+  output$HM_map_b <- renderPlot({
+    print(Select_Var_B())
+  })
+
+  output$download_var_a_map <- downloadHandler(
+    filename = "Variable A Map.png",
+    content = function(file) {
+      png(file)
+      print(Select_Var_A())
+      dev.off()
+    })
+
+  output$download_var_b_map <- downloadHandler(
+    filename = "Variable B Map.png",
+    content = function(file) {
+      png(file)
+      print(Select_Var_B())
+      dev.off()
+    })
 
   select_variable_grouping <- eventReactive(input$HM_val, {
 
