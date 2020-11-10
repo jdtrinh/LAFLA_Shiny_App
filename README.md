@@ -14,7 +14,7 @@ To run the application, perform the following:
     
     list.of.packages <- c("data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
                         "janitor", "lubridate", "plotly", "readxl", "rsconnect", "shiny",
-                        "shinydashboard", "shinythemes", "shinyWidgets", "sqldf",
+                        "shinydashboard", "shinyjs", "shinythemes", "shinyWidgets", "sqldf",
                         "stringr", "zoo", "tidyr", "devtools")
     new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
     if(length(new.packages)) install.packages(new.packages)
