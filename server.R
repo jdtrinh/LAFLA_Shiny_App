@@ -2,12 +2,15 @@
 ###                                 Set-up                                     ###
 ##################################################################################
 
-list.of.packages <- c("data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
+list.of.packages <- c("dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
                       "janitor", "lubridate", "plotly", "readxl", "rsconnect", "shiny",
                       "shinydashboard", "shinythemes", "shinyWidgets", "sqldf",
                       "stringr", "zoo", "tidyr", "devtools")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
+
+install.packages("data.table", dependencies = TRUE)
+install_github('arilamstein/choroplethrZip@v1.5.0')
 
 ## Import Libraries ##
 
@@ -31,13 +34,9 @@ library(stringr)
 library(zoo)
 library(tidyr)
 library(devtools)
-
-# choroplethrZip is on github
-#if (!"choroplethrZip" %in% installed.packages()[, "Package"]) {
-  install_github('arilamstein/choroplethrZip@v1.5.0')
-#}
 library(choroplethrZip)
 
+  
 options(scipen=999)
 rm(list=ls())
 
