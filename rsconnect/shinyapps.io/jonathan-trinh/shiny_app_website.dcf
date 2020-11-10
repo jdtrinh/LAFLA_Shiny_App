@@ -1,0 +1,12 @@
+name: shiny_app_website
+title:
+username:
+account: jonathan-trinh
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2926679
+bundleId: 3799868
+url: https://jonathan-trinh.shinyapps.io/shiny_app_website/
+when: 1604046050.40626
+asMultiple: FALSE
+asStatic: FALSE

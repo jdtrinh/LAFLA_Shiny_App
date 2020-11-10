@@ -1,0 +1,12 @@
+name: LAFLA_Shiny_App_Test_2
+title: LAFLA_Shiny_App_Test_2
+username:
+account: jonathan-trinh
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3128492
+bundleId: 3799912
+url: https://jonathan-trinh.shinyapps.io/LAFLA_Shiny_App_Test_2/
+when: 1604047266.29851
+asMultiple: FALSE
+asStatic: FALSE
