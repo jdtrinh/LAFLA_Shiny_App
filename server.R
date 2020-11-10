@@ -28,7 +28,7 @@ library(devtools)
 
 # choroplethrZip is on github
 if (!"choroplethrZip" %in% installed.packages()[, "Package"]) {
-  install_github('arilamstein/choroplethrZip@v1.1.1')
+  install_github('arilamstein/choroplethrZip@v1.5.0')
 }
 library(choroplethrZip)
 
