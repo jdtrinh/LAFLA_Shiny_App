@@ -27,9 +27,9 @@ library(tidyr)
 library(devtools)
 
 # choroplethrZip is on github
-if (!"choroplethrZip" %in% installed.packages()[, "Package"]) {
+#if (!"choroplethrZip" %in% installed.packages()[, "Package"]) {
   install_github('arilamstein/choroplethrZip@v1.5.0')
-}
+#}
 library(choroplethrZip)
 
 options(scipen=999)
