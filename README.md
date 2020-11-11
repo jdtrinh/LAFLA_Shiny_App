@@ -6,7 +6,7 @@ This application is the product of a pro-bono engagement by economic consultants
 to support the work done by the Legal Aid Foundation of Los Angeles (LAFLA). It includes a database and data 
 visualizations for demographics, housing, local government, employment, and various other metrics in Los 
 Angeles County. This application was built for the purpose of giving policymakers and non-profit leaders the 
-data tools to address the rent burden and housing insecurity crises in Los Angeles. 
+data tools necessary to address the rent burden and housing insecurity crises in Los Angeles. 
 
 To run the application, perform the following:
 
