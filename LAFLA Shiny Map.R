@@ -30,9 +30,6 @@ library(tidyr)
 library(devtools)
 library(choroplethrZip)
 
-options(scipen=999)
-rm(list=ls())
-
 mydata <- read_xlsx("./Input/Merged LAFLA Data (Full Joins).xlsx")
 
 # Create a single flag for supervisoral distit
