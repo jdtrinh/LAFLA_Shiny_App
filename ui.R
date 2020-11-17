@@ -46,7 +46,6 @@ mydata <- subset(mydata, select = -c(NAME, `Zip Code.x`, `Zip Code.y`, name, zip
                                      state, county, year, `Supervisorial District 1`,
                                      `Supervisorial District 2`, `Supervisorial District 3`, 
                                      `Supervisorial District 4`, `Supervisorial District 5`))
-names(mydata)
 
 # Create the list of variable names
 columnChoices <- colnames(mydata)
