@@ -1,82 +1,3 @@
-##################################################################################
-###                                 Set-up                                     ###
-##################################################################################
-
-# End user must install the following packages: shiny, data.table
-
-list.of.packages <- c("data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
-                      "janitor", "lubridate", "plotly", "readxl", "rsconnect", "shiny",
-                      "shinydashboard", "shinythemes", "shinyWidgets", "sqldf",
-                      "stringr", "zoo", "tidyr", "devtools")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
-
-## Import Libraries ##
-library(data.table)
-library(dplyr)
-library(DT)
-library(ggplot2)
-library(ggpubr)
-library(highcharter)
-library(janitor)
-library(lubridate)
-library(plotly)
-library(readxl)
-library(rsconnect)
-library(shiny)
-library(shinydashboard)
-library(shinythemes)
-library(shinyWidgets)
-library(sqldf)
-library(stringr)
-library(zoo)
-library(tidyr)
-library(devtools)
-library(choroplethrZip)
-
-install_github('arilamstein/choroplethrZip@v1.5.0')
-  
-options(scipen=999)
-rm(list=ls())
-
-mydata <- read_xlsx("./Input/Merged LAFLA Data.xlsx")
-# Clean Out Unusable Variables
-mydata <- mydata %>% mutate(
-  `Supervisorial District 1` = str_replace(mydata$`Supervisorial District 1`, "X", "1"),
-  `Supervisorial District 2` = str_replace(mydata$`Supervisorial District 2`, "X", "2"),
-  `Supervisorial District 3` = str_replace(mydata$`Supervisorial District 3`, "X", "3"),
-  `Supervisorial District 4` = str_replace(mydata$`Supervisorial District 4`, "X", "4"),
-  `Supervisorial District 5` = str_replace(mydata$`Supervisorial District 5`, "X", "5"))
-mydata$`Supervisorial District` = as.integer(coalesce(mydata$`Supervisorial District 1`,
-                                                      mydata$`Supervisorial District 2`,
-                                                      mydata$`Supervisorial District 3`,
-                                                      mydata$`Supervisorial District 4`,
-                                                      mydata$`Supervisorial District 5`))
-
-mydata <- subset(mydata, select = -c(NAME, `Zip Code.x`, `Zip Code.y`, name, zip, `Area Name`,
-                                     `Unlimited Civil (exclude Personal Injury)`,
-                                     `Unlimited Civil (Personal Injury)`,
-                                     `Family Law`, `Restraining Orders`, Probate,
-                                     `Limited Civil (exclude Collection)`,
-                                     `Limited Civil (Collection)`,
-                                     `Limited Unlawful Detainer`, `Small Claims`,
-                                     city, state, county, year, `Supervisorial District 1`,
-                                     `Supervisorial District 2`, `Supervisorial District 3`, 
-                                     `Supervisorial District 4`, `Supervisorial District 5`))
-names(mydata)
-
-
-path   <- "./Input/"
-income <- read.csv(paste0(path, "income.csv"))
-income <- row_to_names(income, row_number = 1)
-colnames(income) <- c("id", "Name", "Median Household Income (Estimate)", "Median Household Income (MOE)")
-rent <- read.csv(paste0(path, "rent.csv"))
-rent <- row_to_names(rent, row_number = 1)
-colnames(rent) <- c("id", "Name", "Median Gross Rent (Estimate)", "Median Gross Rent (MOE)")
-tenure <- read.csv(paste0(path, "tenure.csv"))
-tenure <- row_to_names(tenure, row_number = 1)
-colnames(tenure) <- c("id", "Name", "Total (Estimate)", "Total (MOE)", "Owner Occupied (Estimate)", "Owner Occupied (MOE)",
-                      "Renter Occupied (Estimate)", "Renter Occupied (MOE)")
 
 
 ##################################################################################
@@ -348,28 +269,86 @@ server <- function(input, output, session){
     fig
   })
 
-  ### Aurora's Code ###
+  ### Xcevio / Aurora's Code ###
 
-  # Reactive value for selected dataset ----
+  # # Reactive value for selected dataset ----
+  # datasetInput <- reactive({
+  #   switch(input$dataset,
+  #          "Median Income" = income,
+  #          "Median Rent" = rent,
+  #          "Tenure" = tenure)
+  # })
+  # 
+  # # Table of selected dataset ----
+  # output$table <- renderTable({
+  #   datasetInput()
+  # })
+  # 
+  # # Downloadable csv of selected dataset ----
+  # output$downloadData <- downloadHandler(
+  #   filename = function() {
+  #     paste(input$dataset, ".csv", sep = "")
+  #   },
+  #   content = function(file) {
+  #     write.csv(datasetInput(), file, row.names = FALSE)
+  #   }
+  # )
+  
+  # Reactive value for dataset
   datasetInput <- reactive({
-    switch(input$dataset,
-           "Median Income" = income,
-           "Median Rent" = rent,
-           "Tenure" = tenure)
+    
+    # If supervisor districts are not choosen
+    if(is.null(input$supervisorChoice)){
+      
+      mydata %>%
+        # Select columns
+        select(input$variableChoice) %>%
+        # Filer cities
+        filter(city %in% input$cityChoice |
+                 # Filter zip
+                 GEOID %in% input$zipChoice)
+    }
+    
+    # If supervisor districts are not choosen and all citites are
+    # if(input$cityChoice == "All Cities"){
+    # 
+    #   mydata %>%
+    #     # Select columns
+    #     select(input$variableChoice)
+    # 
+    # }
+    
+    # If supervisor districts are choosen
+    else {
+      
+      mydata %>%
+        # Select columns
+        select(input$variableChoice, supervisorial_district) %>%
+        filter(str_detect(supervisorial_district, input$supervisorChoice) == TRUE)
+    }
+    
+    
   })
-
-  # Table of selected dataset ----
-  output$table <- renderTable({
+  
+  # Table of filtered dataset
+  output$table <- renderDataTable({
     datasetInput()
   })
-
-  # Downloadable csv of selected dataset ----
+  
+  # Downloadable csv of filtered dataset
   output$downloadData <- downloadHandler(
     filename = function() {
-      paste(input$dataset, ".csv", sep = "")
+      
+      # Create filename
+      paste('Filtered Data - ', Sys.Date(), ".csv", sep = "")
+      
     },
     content = function(file) {
+      
+      # Download content
       write.csv(datasetInput(), file, row.names = FALSE)
+      
     }
   )
+  
 }

@@ -1,24 +1,3 @@
-library(data.table)
-library(dplyr)
-library(DT)
-library(ggplot2)
-library(ggpubr)
-library(highcharter)
-library(janitor)
-library(lubridate)
-library(plotly)
-library(readxl)
-library(rsconnect)
-library(shiny)
-library(shinydashboard)
-library(shinythemes)
-library(shinyWidgets)
-library(sqldf)
-library(stringr)
-library(zoo)
-library(tidyr)
-library(devtools)
-library(choroplethrZip)
 
 
 ##################################################################################
@@ -45,30 +24,41 @@ ui <- dashboardPage(
   dashboardBody(
     tabItems(
       tabItem(tabName = "datasets-tab",
-              # App title ----
-              titlePanel("Rent Burden - Data Download Demo"),
+              # Set theme
+              theme = shinytheme("spacelab"),
+              # Some help text
+              h2("Data Download"),
+              h4("Make selections to generate a table."),
               
               # Sidebar layout with input and output definitions ----
               sidebarLayout(
                 
-                # Sidebar panel for inputs ----
                 sidebarPanel(
                   
-                  # Input: Choose dataset ----
-                  selectInput("dataset", "Choose a dataset:",
-                              choices = c("Median Income", "Median Rent", "Tenure")),
+                  # Choose the columns
+                  selectInput("variableChoice", "Choose one or more variables:", choices = columnChoices, selected = c("city", "GEOID"), multiple = TRUE),
                   
-                  # Button
-                  downloadButton("downloadData", "Download")
+                  # Choose the variables
+                  selectInput("cityChoice", "Choose one or more Cites:", choices = cityChoices, multiple = TRUE),
                   
+                  # Choose the variables
+                  selectInput("zipChoice", "Choose one or more Zip Codes:", choices = zipChoices, multiple = TRUE),
+                  
+                  # Choose the variables
+                  selectInput("supervisorChoice", "Choose one or more Supervisorial Districts:", choices = supervisorChoices, multiple = TRUE),
+                  
+                  # Choose the variables
+                  selectInput("congressionalChoice", "Choose one or more Congressional Districts:", choices = congressionalChoices, multiple = TRUE),
+                  
+                  # Have another download button
+                  downloadButton("downloadData", "Download Selected Data")
                 ),
                 
-                # Main panel for displaying outputs ----
                 mainPanel(
                   
-                  tableOutput("table")
-                  
-                )
+                  # Some help text
+                  h4("Table with choosen variables"), 
+                  dataTableOutput("table"))
                 
               )),
       tabItem(tabName = "heatmap-tab",
