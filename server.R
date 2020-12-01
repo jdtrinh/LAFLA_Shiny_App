@@ -61,7 +61,10 @@ columnChoices <- colnames(mydata)
 zipChoices <- unique(mydata$GEOID)
 cityChoices <- c("All Cities", unique(mydata$city))
 supervisorChoices <- c("1", "2", "3", "4", "5")
-congressionalChoices <- c("TBD")
+congressionalChoices <- c("25", "26", "27", "28", "29", 
+                          "30", "31", "32", "33", "34", 
+                          "35", "36", "37", "38", "39", 
+                          "40", "41", "42", "43", "44")
 
 ##################################################################################
 ###                                 Server                                     ###
