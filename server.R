@@ -1,11 +1,12 @@
-list.of.packages <- c("proto", "data.table", "dplyr", "DT", "ggplot2", "ggpubr", "highcharter",
-                      "janitor", "lubridate", "plotly", "readxl", "rsconnect", "shiny",
-                      "shinydashboard", "shinyjs", "shinythemes", "shinyWidgets", "sqldf",
-                      "stringr", "zoo", "tidyr", "devtools")
+list.of.packages <- c("stringr", "data.table", "dplyr", "DT", "ggplot2", "ggpubr", "tidyr",
+                      "janitor", "lubridate", "zoo", "readxl", "rsconnect", "shiny", "proto",
+                      "shinydashboard", "shinyjs", "shinythemes", "shinyWidgets", "sqldf" #,
+                      # "plotly", "highcharter", "devtools"
+)
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
-library(devtools)
-install_github('arilamstein/choroplethrZip@v1.5.0')
+# library(devtools)
+# install_github('arilamstein/choroplethrZip@v1.5.0')
 
 library(data.table)
 library(dplyr)
@@ -27,8 +28,8 @@ library(sqldf)
 library(stringr)
 library(zoo)
 library(tidyr)
-library(devtools)
-library(choroplethrZip)
+# library(devtools)
+# library(choroplethrZip)
 
 mydata <- read_xlsx("./Input/Merged LAFLA Data (Full Joins).xlsx")
 

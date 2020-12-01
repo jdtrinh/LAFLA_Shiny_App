@@ -18,8 +18,8 @@ library(sqldf)
 library(stringr)
 library(zoo)
 library(tidyr)
-library(devtools)
-library(choroplethrZip)
+# library(devtools)
+# library(choroplethrZip)
 
 mydata <- read_xlsx("./Input/Merged LAFLA Data (Full Joins).xlsx")
 
