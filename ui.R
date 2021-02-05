@@ -18,8 +18,8 @@ library(sqldf)
 library(stringr)
 library(zoo)
 library(tidyr)
-# library(devtools)
-# library(choroplethrZip)
+library(devtools)
+library(choroplethrZip)
 
 mydata <- read_xlsx("./Input/Merged LAFLA Data (Full Joins).xlsx")
 
@@ -71,10 +71,10 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem(text = "Rent Burden Datasets",
                tabName = "datasets-tab",
-               icon = icon("table"))#,
-      # menuItem(text = "Rent Burden Heat Map", 
-      #          tabName = "heatmap-tab",
-      #          icon = icon("map"))
+               icon = icon("table")),
+      menuItem(text = "Rent Burden Heat Map",
+               tabName = "heatmap-tab",
+               icon = icon("map"))
     )
   ),
   
@@ -117,81 +117,81 @@ ui <- dashboardPage(
                   h4("Table with choosen variables"), 
                   dataTableOutput("table"))
                 
-              ))#,
-      # tabItem(tabName = "heatmap-tab",
-      #         fluidPage(
-      #           # Set theme
-      #           theme = shinytheme("spacelab"),
-      #           # Some help text
-      #           h2("LA County Heat Maps"),
-      #           h4("Make selections to generate a heat map."),
-      #           # Sidebar layout with a input and output definitions
-      #           sidebarLayout(
-      #             # Inputs
-      #             sidebarPanel(
-      #               # Data to View
-      #               radioButtons(inputId = "HM_val", 
-      #                            label = "Select Data to View", 
-      #                            choices = c("Total Data", "Demographics", "Housing", "Other"), 
-      #                            selected = "Total Data"),
-      #               
-      #               
-      #               uiOutput("map_a_val"),
-      #               uiOutput("map_b_val")                    
-      #               
-      #             ),
-      #             
-      #             # Plotly Chart Area
-      #             
-      #             mainPanel(
-      #               
-      #               fluidRow(
-      #                 splitLayout(cellWidths = c("50%", "50%"), 
-      #                             h2("Map of Variable A"),
-      #                             h2("Map of Variable B")),
-      #                 splitLayout(cellWidths = c("50%", "50%"), 
-      #                             plotOutput(
-      #                               outputId = "HM_map_a",
-      #                               height = 600,
-      #                               width = 600),
-      #                             plotOutput(
-      #                               outputId = "HM_map_b",
-      #                               height = 600,
-      #                               width = 600)
-      #                 ),
-      #                 splitLayout(cellWidths = c("50%", "50%"),
-      #                             downloadButton('download_var_a_map', 'Download Var A Map'),
-      #                             downloadButton('download_var_b_map', 'Download Var B Map')
-      #                 ),
-      #                 h4(strong("Notes:")),
-      #                 h4("1. The legend can represent dollars, count, or percentages."),
-      #                 h4("2. The zip codes are manually selected, and might not represent the governement definition of Greater Los Angeles.\n\n"),
-      #                 
-      #                 splitLayout(cellWidths = c("50%", "50%"),
-      #                             h2("Variable A Data"),
-      #                             h2("Variable B Data")),
-      # 
-      #                 splitLayout(cellWidths = c("50%", "50%"),
-      #                             DT::dataTableOutput(outputId = "DT_table_a"),
-      #                             DT::dataTableOutput(outputId = "DT_table_b")),
-      # 
-      #                 plotlyOutput(outputId = "PL_chart")
-      #                 
-      #                 
-      #               )
-      #               
-      #             )
-      #             
-      #           )
-      #         )
-      #         
-      #         
-      #         
-      #         
-      #         
-      #         
-      #         
-      # )
+              )),
+      tabItem(tabName = "heatmap-tab",
+              fluidPage(
+                # Set theme
+                theme = shinytheme("spacelab"),
+                # Some help text
+                h2("LA County Heat Maps"),
+                h4("Make selections to generate a heat map."),
+                # Sidebar layout with a input and output definitions
+                sidebarLayout(
+                  # Inputs
+                  sidebarPanel(
+                    # Data to View
+                    radioButtons(inputId = "HM_val",
+                                 label = "Select Data to View",
+                                 choices = c("Total Data", "Demographics", "Housing", "Other"),
+                                 selected = "Total Data"),
+
+
+                    uiOutput("map_a_val"),
+                    uiOutput("map_b_val")
+
+                  ),
+
+                  # Plotly Chart Area
+
+                  mainPanel(
+
+                    fluidRow(
+                      splitLayout(cellWidths = c("50%", "50%"),
+                                  h2("Map of Variable A"),
+                                  h2("Map of Variable B")),
+                      splitLayout(cellWidths = c("50%", "50%"),
+                                  plotOutput(
+                                    outputId = "HM_map_a",
+                                    height = 600,
+                                    width = 600),
+                                  plotOutput(
+                                    outputId = "HM_map_b",
+                                    height = 600,
+                                    width = 600)
+                      ),
+                      splitLayout(cellWidths = c("50%", "50%"),
+                                  downloadButton('download_var_a_map', 'Download Var A Map'),
+                                  downloadButton('download_var_b_map', 'Download Var B Map')
+                      ),
+                      h4(strong("Notes:")),
+                      h4("1. The legend can represent dollars, count, or percentages."),
+                      h4("2. The zip codes are manually selected, and might not represent the governement definition of Greater Los Angeles.\n\n"),
+
+                      splitLayout(cellWidths = c("50%", "50%"),
+                                  h2("Variable A Data"),
+                                  h2("Variable B Data")),
+
+                      splitLayout(cellWidths = c("50%", "50%"),
+                                  DT::dataTableOutput(outputId = "DT_table_a"),
+                                  DT::dataTableOutput(outputId = "DT_table_b")),
+
+                      plotlyOutput(outputId = "PL_chart")
+
+
+                    )
+
+                  )
+
+                )
+              )
+
+
+
+
+
+
+
+      )
       
     ),
     
